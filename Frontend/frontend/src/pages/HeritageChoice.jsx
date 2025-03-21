@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import ArtChoice from '../assets/rajasthanArts/Artchoice.jpg'
 import MonChoice from '../assets/rajasthanArts/Monchoice.jpg'
 function HeritageChoice() {
     const navigate = useNavigate();
@@ -13,10 +14,8 @@ function HeritageChoice() {
     }
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center p-8" style={{
-            background: `linear-gradient(rgba(255, 122, 0, 0.8), rgba(249, 188, 104, 0.8)), url(${MonChoice})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+        <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-100 flex flex-col items-center justify-center p-8" style={{
+            background: "linear-gradient(90deg, #ff7a00, #f9bc68)",
         }}>
             <motion.div 
                 initial={{ opacity: 0, y: -20 }}
@@ -24,18 +23,23 @@ function HeritageChoice() {
                 transition={{ duration: 0.8 }}
                 className="text-center mb-12 "
             >
-                <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">Explore Rajasthan's Rich Heritage</h1>
-                <p className="text-xl text-white max-w-3xl mx-auto">Discover the vibrant tapestry of Rajasthan's cultural legacy through its magnificent monuments and exquisite art forms.</p>
+                <h1 className="text-4xl md:text-6xl font-bold text-amber-800 mb-4">Explore Rajasthan's Rich Heritage</h1>
+                <p className="text-xl text-amber-700 max-w-3xl mx-auto">Discover the vibrant tapestry of Rajasthan's cultural legacy through its magnificent monuments and exquisite art forms.</p>
             </motion.div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
-                <motion.div 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl" >
+                <motion.div style={{
+            background: `linear-gradient(rgba(255, 122, 0, 0.8), rgba(249, 188, 104, 0.8)), url(${MonChoice})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+        }}
+                
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={handleMonumentalClick} 
                     className="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-2xl"
                 >
-                    <div className="h-64 bg-amber-700 bg-opacity-90 flex items-center justify-center p-6 ">
+                    <div className="h-64  bg-opacity-90 flex items-center justify-center p-6 ">
                         <h2 className="text-3xl font-bold text-white">Monumental Heritage</h2>
                     </div>
                     <div className="p-6">
@@ -44,12 +48,17 @@ function HeritageChoice() {
                 </motion.div>
                 
                 <motion.div 
+                style={{
+                    background: `linear-gradient(rgba(255, 122, 0, 0.8), rgba(249, 188, 104, 0.8)), url(${ArtChoice})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={handleArtsClick} 
                     className="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-2xl"
                 >
-                    <div className="h-64 bg-orange-600 bg-opacity-90 flex items-center justify-center p-6">
+                    <div className="h-64  bg-opacity-90 flex items-center justify-center p-6">
                         <h2 className="text-3xl font-bold text-white">Artistic Heritage</h2>
                     </div>
                     <div className="p-6">
@@ -62,7 +71,7 @@ function HeritageChoice() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1, duration: 1 }}
-                className="mt-12 text-center text-white italic"
+                className="mt-12 text-center text-amber-700 italic"
             >
                 "A journey through Rajasthan is a journey through centuries of artistic brilliance and architectural marvels."
             </motion.p>

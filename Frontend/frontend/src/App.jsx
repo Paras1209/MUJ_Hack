@@ -15,7 +15,8 @@ function App() {
       <div style={{ height: '100vh', width: '100%' }}>
         <Navbar />
         <Routes>
-          <Route path="/" element={<HeritageChoice />} />
+          <Route path="/" element={<Map />} />
+          {/* <Route path="/" element={<HeritageChoice />} /> */}
           <Route path="/monumentsHeritage/rajasthan" element={<RajasthanMon />} />
           <Route path="/artsHeritage/rajasthan" element={<RajasthanArt/>} />
         </Routes>
