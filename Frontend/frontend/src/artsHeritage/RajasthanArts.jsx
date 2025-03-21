@@ -1,48 +1,53 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-// Updated arts array with more realistic image URLs
+// Import all art images properly
+import phadArt from '../assets/rajasthanArts/phad-art[1].jpg';
+import miniatureArt from '../assets/rajasthanArts/Miniature_painting[1].jpg';
+import bluePottery from '../assets/rajasthanArts/blue_pottery[1].jpg';
+import thewaArt from '../assets/rajasthanArts/thewa[1].jpg';
+import bandhani from '../assets/rajasthanArts/bandhani[1].jpg';
+import kathputli from '../assets/rajasthanArts/KATHPUTLI[1].jpg';
+
+// Updated arts array with proper image imports
 const arts = [
-  { id: 1, name: 'Phad Painting', description: 'Scroll paintings depicting folk epics and religious tales of local deities and heroes, characterized by bold colors and stylized forms.', image: 'https://i.pinimg.com/originals/13/8f/70/138f70641c6a6f00934774f839a33135.jpg', artist: 'Shrilal Joshi' },
-  { id: 2, name: 'Miniature Painting', description: 'Detailed paintings on small scale featuring intricate details of royal life, court scenes, hunting expeditions and religious themes.', image: 'https://i.pinimg.com/originals/22/26/5d/22265d74fa91c3521d7377b2a75173ac.jpg', artist: 'Ram Singh' },
-  { id: 3, name: 'Blue Pottery', description: 'Glazed pottery in vibrant blue and white colors, featuring Persian-inspired motifs of flowers, animals and geometric patterns.', image: 'https://www.jaipurstuff.com/wp-content/uploads/2020/01/Blue-Pottery-of-Jaipur-1.jpg', artist: 'Kripal Singh' },
-  { id: 4, name: 'Thewa Art', description: 'Gold work on molten glass creating intricate designs, primarily used in jewelry. This traditional craft originated in Pratapgarh, Rajasthan.', image: 'https://5.imimg.com/data5/BB/CV/MY-3019569/thewa-art-jewellery-500x500.jpg', artist: 'Soni Family' },
-  { id: 5, name: 'Bandhani', description: 'Ancient tie-dye textile art creating colorful patterns on fabric by tying small portions with thread before dyeing.', image: 'https://i.pinimg.com/originals/3f/5b/8a/3f5b8a1cda383e1b291a13216d5896c5.jpg', artist: 'Leela Devi' },
-  { id: 6, name: 'Kathputli', description: 'Traditional string puppetry with intricately designed wooden puppets depicting folk tales and legends of Rajasthan.', image: 'https://www.theoriginaltour.com/wp-content/uploads/2019/09/rajasthani-puppet.jpg', artist: 'Puran Bhatt' },
+  { id: 1, name: 'Phad Painting', description: 'Scroll paintings depicting folk epics and religious tales of local deities and heroes, characterized by bold colors and stylized forms.', image: phadArt, artist: 'Shrilal Joshi', story: 'Phad paintings originated in Rajasthan around 700 years ago. These scroll paintings serve as a portable temple for traveling bards who move from village to village, narrating epic folk stories of local deities.' },
+  { id: 2, name: 'Miniature Painting', description: 'Detailed paintings on small scale featuring intricate details of royal life, court scenes, hunting expeditions and religious themes.', image: miniatureArt, artist: 'Ram Singh', story: 'Rajasthani miniature paintings emerged in the 16th century under royal patronage. The art form is characterized by its intricate brushwork, vibrant colors, and detailed portrayal of court life and mythology.' },
+  { id: 3, name: 'Blue Pottery', description: 'Glazed pottery in vibrant blue and white colors, featuring Persian-inspired motifs of flowers, animals and geometric patterns.', image: bluePottery, artist: 'Kripal Singh', story: 'Blue Pottery came to Jaipur from Persia and Afghanistan via Mughal courts. Unlike conventional pottery, it is made from quartz stone powder, not clay, giving it a distinctive character and appeal.' },
+  { id: 4, name: 'Thewa Art', description: 'Gold work on molten glass creating intricate designs, primarily used in jewelry. This traditional craft originated in Pratapgarh, Rajasthan.', image: thewaArt, artist: 'Soni Family', story: 'Thewa art dates back to the Mughal era and was perfected by the Soni family of Pratapgarh. This unique craft involves fusing intricate gold designs onto molten glass to create spectacular jewelry pieces.' },
+  { id: 5, name: 'Bandhani', description: 'Ancient tie-dye textile art creating colorful patterns on fabric by tying small portions with thread before dyeing.', image: bandhani, artist: 'Leela Devi', story: 'Bandhani is one of the oldest tie-dye techniques in India, dating back 5,000 years. The term comes from the Sanskrit word "bandh" meaning "to tie." Each region in Rajasthan has its distinct patterns and color combinations.' },
+  { id: 6, name: 'Kathputli', description: 'Traditional string puppetry with intricately designed wooden puppets depicting folk tales and legends of Rajasthan.', image: kathputli, artist: 'Puran Bhatt', story: 'Kathputli puppetry emerged over 1,000 years ago as entertainment for royal courts. These wooden marionettes bring to life Rajasthani folklore and epic tales through skilled manipulation and vocal storytelling.' },
 ];
+
+// Group arts by artists for the artist view
+const artistsData = {};
+arts.forEach(art => {
+  if (!artistsData[art.artist]) {
+    artistsData[art.artist] = { name: art.artist, works: [] };
+  }
+  artistsData[art.artist].works.push(art);
+});
+const artists = Object.values(artistsData);
 
 function RajasthanArts() {
   const [viewType, setViewType] = useState('arts');
-  const [selectedItem, setSelectedItem] = useState(null);
+  const navigate = useNavigate();
 
-  const handleItemClick = (item) => {
-    setSelectedItem(item);
+  const handleArtClick = (art) => {
+    // In a real app, you would navigate to a dedicated page
+    // For this example, we'll log and simulate navigation
+    console.log(`Navigating to art page: ${art.name}`);
+    
+    // You would implement this route in your app
+    // navigate(`/art/${art.id}`);
+    
+    // For demo purposes, open a new window with art details
+    localStorage.setItem('selectedArt', JSON.stringify(art));
+    window.open('/art-details', '_blank');
   };
-
-  const closeDetails = () => {
-    setSelectedItem(null);
-  };
-
-  const groupByArtist = () => {
-    const artistMap = {};
-    arts.forEach(art => {
-      if (!artistMap[art.artist]) {
-        artistMap[art.artist] = [];
-      }
-      artistMap[art.artist].push(art);
-    });
-    return Object.entries(artistMap).map(([artist, works]) => ({
-      name: artist,
-      works,
-      image: works[0].image
-    }));
-  };
-
-  const displayItems = viewType === 'arts' ? arts : groupByArtist();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-100 py-12 px-4 sm:px-6 lg:px-8 " style={{
-      background: "linear-gradient(90deg, #ff7a00, #f9bc68)",
-  }}>
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-8 text-amber-800">Rajasthan Arts & Heritage</h1>
         
@@ -67,85 +72,59 @@ function RajasthanArts() {
           </div>
         </div>
 
-        <div className="relative h-[700px] w-[700px] mx-auto">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-amber-500 rounded-full opacity-30"></div>
-          
-          {displayItems.map((item, index) => {
-            const angle = index * (360 / displayItems.length);
-            const radian = (angle * Math.PI) / 180;
-            const x = 300 * Math.cos(radian);
-            const y = 300 * Math.sin(radian);
-            
-            return (
+        {viewType === 'arts' ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {arts.map(art => (
               <div 
-                key={index} 
-                className="absolute w-32 h-32 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-transform duration-300 hover:scale-110"
-                style={{
-                  left: `calc(50% + ${x}px)`,
-                  top: `calc(50% + ${y}px)`,
-                }}
-                onClick={() => handleItemClick(item)}
+                key={art.id}
+                className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
+                onClick={() => handleArtClick(art)}
               >
-                <div 
-                  className="w-full h-full rounded-full bg-cover bg-center shadow-lg border-2 border-amber-200 flex items-center justify-center overflow-hidden"
-                  style={{ backgroundImage: `url(${item.image})` }}
-                >
-                  <div className="w-full h-full bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="text-white text-center font-medium px-1 text-sm">{item.name}</span>
+                <div className="h-64 overflow-hidden">
+                  <img 
+                    src={art.image} 
+                    alt={art.name} 
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-amber-800 mb-2">{art.name}</h3>
+                  <p className="text-gray-700 mb-4 line-clamp-3">{art.description}</p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-amber-600">Artist: {art.artist}</span>
+                    <span className="inline-block bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-semibold">
+                      View Details
+                    </span>
                   </div>
                 </div>
               </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {selectedItem && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-5xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-3xl font-bold text-amber-800">{selectedItem.name}</h2>
-                <button 
-                  className="text-gray-500 hover:text-gray-700 focus:outline-none"
-                  onClick={closeDetails}
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
-                </button>
-              </div>
-
-              {viewType === 'arts' ? (
-                <div className="flex flex-col md:flex-row gap-6">
-                  <img src={selectedItem.image} alt={selectedItem.name} className="w-full md:w-1/2 h-auto rounded-lg object-cover shadow-md" />
-                  <div>
-                    <p className="text-gray-700 mb-4 text-lg">{selectedItem.description}</p>
-                    <p className="text-amber-700 text-lg"><span className="font-bold">Artist:</span> {selectedItem.artist}</p>
-                  </div>
-                </div>
-              ) : (
-                <div>
-                  <p className="text-amber-700 mb-4 text-xl"><span className="font-bold">Artist:</span> {selectedItem.name}</p>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    {selectedItem.works.map(work => (
-                      <div key={work.id} className="border border-amber-200 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                        <div className="h-80 overflow-hidden">
-                          <img src={work.image} alt={work.name} className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300" />
-                        </div>
-                        <div className="p-6 bg-gradient-to-b from-amber-50 to-orange-50">
-                          <h3 className="text-xl font-semibold text-amber-800 mb-3">{work.name}</h3>
-                          <p className="text-gray-700">{work.description}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
+            ))}
           </div>
-        </div>
-      )}
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {artists.map((artist, index) => (
+              <div key={index} className="bg-white rounded-lg overflow-hidden shadow-lg">
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-amber-800 mb-4">{artist.name}</h3>
+                  <p className="text-gray-700 mb-3">Specialized in:</p>
+                  <ul className="space-y-2">
+                    {artist.works.map(work => (
+                      <li 
+                        key={work.id}
+                        className="flex items-center space-x-3 p-2 rounded-md hover:bg-amber-50 cursor-pointer"
+                        onClick={() => handleArtClick(work)}
+                      >
+                        <img src={work.image} alt={work.name} className="w-12 h-12 rounded-full object-cover" />
+                        <span className="text-amber-700">{work.name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

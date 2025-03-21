@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-
+import MonChoice from '../assets/rajasthanArts/Monchoice.jpg'
 function HeritageChoice() {
     const navigate = useNavigate();
 
@@ -13,17 +13,19 @@ function HeritageChoice() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-100 flex flex-col items-center justify-center p-8" style={{
-            background: "linear-gradient(90deg, #ff7a00, #f9bc68)",
+        <div className="min-h-screen flex flex-col items-center justify-center p-8" style={{
+            background: `linear-gradient(rgba(255, 122, 0, 0.8), rgba(249, 188, 104, 0.8)), url(${MonChoice})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
         }}>
             <motion.div 
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="text-center mb-12"
+                className="text-center mb-12 "
             >
-                <h1 className="text-4xl md:text-6xl font-bold text-amber-800 mb-4">Explore Rajasthan's Rich Heritage</h1>
-                <p className="text-xl text-amber-700 max-w-3xl mx-auto">Discover the vibrant tapestry of Rajasthan's cultural legacy through its magnificent monuments and exquisite art forms.</p>
+                <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">Explore Rajasthan's Rich Heritage</h1>
+                <p className="text-xl text-white max-w-3xl mx-auto">Discover the vibrant tapestry of Rajasthan's cultural legacy through its magnificent monuments and exquisite art forms.</p>
             </motion.div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
@@ -60,7 +62,7 @@ function HeritageChoice() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1, duration: 1 }}
-                className="mt-12 text-center text-amber-700 italic"
+                className="mt-12 text-center text-white italic"
             >
                 "A journey through Rajasthan is a journey through centuries of artistic brilliance and architectural marvels."
             </motion.p>
