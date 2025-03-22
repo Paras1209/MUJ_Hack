@@ -8,6 +8,7 @@ import { Route, Routes } from 'react-router-dom'
 import Rajasthan from './monumentsHeritage/RajasthanMon';
 import RajasthanMon from './monumentsHeritage/RajasthanMon';
 import RajasthanArt from './artsHeritage/RajasthanArts';
+import ArtistRegistration from './pages/ArtistREgistration';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           {/* <Route path="/" element={<HeritageChoice />} /> */}
           <Route path="/monumentsHeritage/rajasthan" element={<RajasthanMon />} />
           <Route path="/artsHeritage/rajasthan" element={<RajasthanArt/>} />
+          <Route path="/artist/registration" element={<ArtistRegistration/>} />
         </Routes>
       </div>
     </BrowserRouter>
